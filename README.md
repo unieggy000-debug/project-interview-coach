@@ -7,7 +7,7 @@
 
 ---
 
-## 推荐安装（适配全部兼容宿主）
+## 推荐安装
 
 有 Node.js 时，用开放生态安装器（[vercel-labs/skills](https://github.com/vercel-labs/skills)），一次装到 **当前环境支持的全部 Agent**：
 
