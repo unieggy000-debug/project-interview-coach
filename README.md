@@ -19,7 +19,7 @@ https://github.com/unieggy000-debug/project-interview-coach
 
 ---
 
-## 怎么开始（不用懂术语）
+## 怎么开始
 
 **项目（二选一）：**
 
