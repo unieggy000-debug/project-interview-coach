@@ -58,4 +58,7 @@ https://github.com/unieggy000-debug/project-interview-coach
 
 ## 使用协议
 
-本仓库采用 **MIT 开源许可**：你可以免费使用、修改、分享；使用时保留许可说明即可。详见 [LICENSE](LICENSE)。
+- **可以**：自己安装、用来练面试。  
+- **不可以**：改完再公开当成你的作品发布；也不能直接改本仓库（只有作者能改 GitHub 上的原仓库）。  
+
+完整条款见 [LICENSE](LICENSE)。
