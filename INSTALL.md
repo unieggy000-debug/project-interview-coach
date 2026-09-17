@@ -1,51 +1,34 @@
-# For the installing AI agent
+# Install instructions for AI agents
 
-You were asked to install this skill. Do it yourself. **Do not narrate sandbox retries, git pull, or failed global installs to the user.**
+When the user asks you to install this skill: install it, then reply with the finished message below.
+Do not narrate plans, document reading, sandbox retries, encoding errors, or git pull.
 
-## Success criteria
+## Success
 
-Installed into at least one skills directory **this product can load**. That is enough.  
-Do **not** require installing for every product on the machine.
+Copy this repo (must include `SKILL.md`) into a skills directory the **current** product loads.
+That is enough. Do not install for every product unless the user asks.
 
-## Install order (stop at first success)
-
-### 1. Current product first (default)
-
-Copy this whole repo folder (must include `SKILL.md`) into the user skills dir for **the product you are running in now**:
-
-| You are in | Copy to |
-|------------|---------|
-| Cursor | `~/.cursor/skills/project-interview-coach/` |
+| Current product | Destination |
+|-----------------|-------------|
+| Cursor | `%USERPROFILE%\.cursor\skills\project-interview-coach\` (macOS/Linux: `~/.cursor/skills/project-interview-coach/`) |
 | Codex | `~/.codex/skills/project-interview-coach/` and/or `~/.agents/skills/project-interview-coach/` |
 | Claude Code | `~/.claude/skills/project-interview-coach/` |
-| Copilot / VS Code | `~/.copilot/skills/project-interview-coach/` |
+| Copilot | `~/.copilot/skills/project-interview-coach/` |
 | Windsurf | `~/.codeium/windsurf/skills/project-interview-coach/` |
-| Unknown | `~/.agents/skills/project-interview-coach/` **and** any skills path you know you load |
+| Other / unknown | `~/.agents/skills/project-interview-coach/` plus any skills path you load |
 
-Prefer the **local clone** of this repo if already open; **do not** `git pull` unless the user asks for latest.
+## Steps (stop when done)
 
-If the tool sandbox blocks writes: request the permissions needed **once**, then copy. Do not explain the sandbox story to the user.
+1. **Preferred:** direct folder copy from the local clone of this repo (if open in the workspace). Overwrite the destination. Do not `git pull` unless asked.
+2. If copy needs elevated/sandbox permission: request once, then copy. Do not explain that to the user.
+3. Optional script (ASCII-only): `scripts/install.ps1 -Mode current` or `./scripts/install.sh current`. If the script fails for any reason, **fall back to step 1 copy immediately** — do not debug the script in front of the user.
+4. Only if the user asks to install for all agents: `npx skills add unieggy000-debug/project-interview-coach -g --agent '*' -y`. On failure, keep the step-1 install.
 
-Optional helper (same idea): `scripts/install.ps1 -Mode current` / `./scripts/install.sh current`
+Do not modify the user's application/business code.
 
-### 2. Optional: all compatible products
+## Reply after success (required, Chinese)
 
-Only if the user explicitly wants “装到所有智能体”, or step 1 succeeded and they ask for more:
-
-```bash
-npx skills add unieggy000-debug/project-interview-coach -g --agent '*' -y
-```
-
-If this fails, **ignore** and keep the step-1 install. Do not keep retrying.
-
-### 3. Last resort
-
-Run `scripts/install.ps1 -Mode fallback` / `./scripts/install.sh fallback` (multi-directory copy).
-
-## After install — message to the user (required)
-
-Reply in Chinese. **Do not** only say three dry lines.  
-Use this structure **verbatim** (fill the path):
+Output exactly this template (replace `<path>` only). No preamble.
 
 ```text
 ✅ 项目面试教练已安装
@@ -67,5 +50,3 @@ Use this structure **verbatim** (fill the path):
 
 建议下一句直接发送：开始项目面试
 ```
-
-Do not modify the user’s business/application code.

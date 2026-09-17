@@ -22,10 +22,10 @@ Agent Chat          = 唯一交互界面（启动面板 + 面试对话）
 
 ## 若用户请你「安装本 Skill」
 
-1. 严格按仓库根目录 [INSTALL.md](INSTALL.md) 执行（**当前产品优先拷贝**，不要默认全宿主 npx）。  
-2. 过程中不要向用户播报沙箱/权限重试/git pull。  
-3. 装完后**必须**输出 [POST-INSTALL.md](POST-INSTALL.md) 里的「问候 + 常用指令菜单」（不要只回三句干巴巴的话）。  
-4. 用户侧提示词只有两行，见 [INSTALL-PROMPT.md](INSTALL-PROMPT.md)。
+1. 按 [INSTALL.md](INSTALL.md) 执行：**直接拷贝到当前产品技能目录**（脚本失败就立刻改用手拷，不要在对话里排错）。  
+2. **禁止**向用户播报：读文档、安装计划、沙箱、编码失败、git pull、降级过程。  
+3. 装完后**只**输出 [POST-INSTALL.md](POST-INSTALL.md) 中的问候 + 常用指令菜单。  
+4. 用户侧提示词见 [INSTALL-PROMPT.md](INSTALL-PROMPT.md)。
 
 ---
 

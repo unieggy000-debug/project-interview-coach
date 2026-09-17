@@ -1,10 +1,8 @@
-# Install project-interview-coach
-#
-# Default: current-product copy (fast, sandbox-friendly)
-# Optional: npx all agents | multi-dir fallback
+# Install project-interview-coach (Windows PowerShell)
+# ASCII-only script body to avoid Windows encoding parse errors.
 #
 #   .\scripts\install.ps1
-#   .\scripts\install.ps1 -Mode current
+#   .\scripts\install.ps1 -Mode current -Product cursor
 #   .\scripts\install.ps1 -Mode npx
 #   .\scripts\install.ps1 -Mode fallback
 
@@ -18,6 +16,8 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
+try { [Console]::OutputEncoding = [System.Text.UTF8Encoding]::new($false) } catch {}
+
 $src = Split-Path -Parent $PSScriptRoot
 if (-not (Test-Path (Join-Path $src "SKILL.md"))) {
   Write-Error "SKILL.md not found. Run from the skill repo."
@@ -25,6 +25,7 @@ if (-not (Test-Path (Join-Path $src "SKILL.md"))) {
 
 $RepoSlug = "unieggy000-debug/project-interview-coach"
 $home = $env:USERPROFILE
+$placeholder = [string]::Concat([char]60, "path", [char]62)  # <path> without parser issues
 
 function Copy-SkillTo([string]$destRoot) {
   $dest = Join-Path $destRoot "project-interview-coach"
@@ -45,7 +46,6 @@ function Resolve-CurrentDest {
     "windsurf" { return (Join-Path $home ".codeium\windsurf\skills") }
     "agents" { return (Join-Path $home ".agents\skills") }
     default {
-      # Heuristic: Cursor is the most common install path for this workflow
       if (Test-Path (Join-Path $home ".cursor")) {
         return (Join-Path $home ".cursor\skills")
       }
@@ -54,35 +54,32 @@ function Resolve-CurrentDest {
   }
 }
 
-function Show-PostInstall([string]$path) {
-  Write-Host ""
-  Write-Host "✅ 项目面试教练已安装"
-  Write-Host "已装到：$path"
-  Write-Host ""
-  Write-Host "请【新开一个对话】，打开你的正式项目，然后发送指令开练。"
-  Write-Host ""
-  Write-Host "————————"
-  Write-Host "🧭 常用指令（不知道发什么就看这里）"
-  Write-Host "1. 开始项目面试 — 自动开练（第一次一般是摸底）"
-  Write-Host "2. 菜单 — 再看这份清单"
-  Write-Host "3. mock-pm — 产品经理模拟面试"
-  Write-Host "4. mock-technical — 偏技术追问"
-  Write-Host "5. deep-dive <模块名> — 专啃一个模块（如 Agent Loop）"
-  Write-Host "6. explain <主题> 30s — 闭卷口述（也可 2min / 5min）"
-  Write-Host "7. pressure — 压力追问"
-  Write-Host "8. 继续 — 按上次进度接着练"
-  Write-Host "————————"
-  Write-Host ""
-  Write-Host "建议下一句直接发送：开始项目面试"
-  Write-Host ""
+function Show-PostInstall([string]$installedPath) {
+  $templatePath = Join-Path $src "POST-INSTALL.md"
+  if (Test-Path $templatePath) {
+    $raw = [System.IO.File]::ReadAllText($templatePath, [System.Text.UTF8Encoding]::new($false))
+    $marker = '```text'
+    $start = $raw.IndexOf($marker)
+    if ($start -ge 0) {
+      $start = $raw.IndexOf([char]10, $start) + 1
+      $end = $raw.IndexOf('```', $start)
+      if ($end -gt $start) {
+        $body = $raw.Substring($start, $end - $start).Trim()
+        $body = $body.Replace($placeholder, $installedPath)
+        Write-Output $body
+        return
+      }
+    }
+  }
+  Write-Output ("Installed: " + $installedPath)
+  Write-Output "Open a NEW chat, then send: start project interview"
 }
 
 function Install-Current {
   $root = Resolve-CurrentDest
   $dest = Copy-SkillTo $root
-  # Also drop a copy into .agents/skills when installing for Cursor (shared convention)
   if ($root -like "*\.cursor\skills") {
-    try { Copy-SkillTo (Join-Path $home ".agents\skills") | Out-Null } catch {}
+    try { [void](Copy-SkillTo (Join-Path $home ".agents\skills")) } catch {}
   }
   return $dest
 }
@@ -105,7 +102,7 @@ function Install-ViaNpx {
     & npx --yes @npxArgs
     if ($LASTEXITCODE -ne 0) { throw "npx skills add failed" }
   }
-  return "npx skills (see CLI output)"
+  return (Join-Path (Resolve-CurrentDest) "project-interview-coach")
 }
 
 function Install-Fallback {
