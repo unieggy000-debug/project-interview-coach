@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>项目面试教练 · 怎么用</title>
+  <style>
+    :root {
+      --ink: #142033;
+      --muted: #5a6578;
+      --line: #d7dde8;
+      --bg: #f3f6fb;
+      --card: #ffffff;
+      --accent: #1f4e79;
+      --accent-soft: #e8f0f8;
+      --ok: #1b6b4a;
+      --warn: #8a5a12;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(900px 420px at 10% -10%, #dbe8f6 0%, transparent 55%),
+        radial-gradient(700px 380px at 100% 0%, #e7eef7 0%, transparent 50%),
+        var(--bg);
+      line-height: 1.55;
+    }
+    main {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 48px 20px 80px;
+    }
+    .brand {
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    h1 {
+      font-size: clamp(1.7rem, 3vw, 2.2rem);
+      line-height: 1.2;
+      margin: 0 0 12px;
+      font-weight: 750;
+    }
+    .lead {
+      color: var(--muted);
+      font-size: 1.05rem;
+      margin: 0 0 28px;
+      max-width: 38em;
+    }
+    .steps {
+      display: grid;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+    .step {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 16px 18px;
+      display: grid;
+      grid-template-columns: 40px 1fr;
+      gap: 14px;
+      align-items: start;
+    }
+    .num {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      display: grid;
+      place-items: center;
+      font-weight: 750;
+    }
+    .step h2 {
+      margin: 2px 0 6px;
+      font-size: 1.05rem;
+    }
+    .step p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+    .say {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 6px 10px;
+      background: #111827;
+      color: #f8fafc;
+      border-radius: 8px;
+      font-family: ui-monospace, Consolas, monospace;
+      font-size: 0.86rem;
+    }
+    section {
+      margin-top: 32px;
+    }
+    section h2 {
+      font-size: 1.15rem;
+      margin: 0 0 12px;
+    }
+    .cmds {
+      display: grid;
+      gap: 8px;
+    }
+    .cmd {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 10px;
+      padding: 12px 14px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      align-items: center;
+    }
+    @media (max-width: 640px) {
+      .cmd { grid-template-columns: 1fr; }
+    }
+    code {
+      font-family: ui-monospace, Consolas, monospace;
+      font-size: 0.88rem;
+      background: var(--accent-soft);
+      color: var(--accent);
+      padding: 3px 7px;
+      border-radius: 6px;
+    }
+    .hint {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+    .note {
+      margin-top: 28px;
+      padding: 14px 16px;
+      border-left: 4px solid var(--accent);
+      background: var(--accent-soft);
+      border-radius: 0 10px 10px 0;
+      font-size: 0.95rem;
+    }
+    .footer {
+      margin-top: 36px;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+    .pill {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: #e8f6ef;
+      color: var(--ok);
+      font-size: 0.78rem;
+      font-weight: 650;
+      margin-left: 6px;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="brand">Project Interview Coach</div>
+    <h1>在 Cursor 里练项目面试<span class="pill">零配置</span></h1>
+    <p class="lead">
+      不用另开练习仓库、不用填路径。打开你的正式项目，在 Agent Chat 里说话即可。
+      练习笔记会自动写到项目里的 <code>.interview-coach/</code>。
+    </p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="num">1</div>
+        <div>
+          <h2>安装 Skill（只需一次）</h2>
+          <p>把本仓库装进 Cursor 个人 skills，或运行 <code>scripts/install.ps1</code>。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="num">2</div>
+        <div>
+          <h2>打开正式项目</h2>
+          <p>用 Cursor 打开你要讲的那个仓库（例如 vision-agent）。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="num">3</div>
+        <div>
+          <h2>新开 Agent Chat，说一句</h2>
+          <p>Agent 会自动建练习区并开场，不要先问你路径。</p>
+          <span class="say">开始项目面试</span>
+        </div>
+      </div>
+    </div>
+
+    <section>
+      <h2>常用指令（复制到 Chat）</h2>
+      <div class="cmds">
+        <div class="cmd">
+          <code>开始项目面试</code>
+          <span class="hint">自动 diagnose 或按上次进度续练</span>
+        </div>
+        <div class="cmd">
+          <code>mock-pm</code>
+          <span class="hint">AI 产品经理模拟面试</span>
+        </div>
+        <div class="cmd">
+          <code>mock-technical</code>
+          <span class="hint">偏技术追问</span>
+        </div>
+        <div class="cmd">
+          <code>deep-dive Agent Loop</code>
+          <span class="hint">专啃一个模块</span>
+        </div>
+        <div class="cmd">
+          <code>deep-dive GAP-007</code>
+          <span class="hint">专啃某个漏洞编号</span>
+        </div>
+        <div class="cmd">
+          <code>explain Agent Loop 30s</code>
+          <span class="hint">闭卷口述 30 秒 / 也可 2min 5min</span>
+        </div>
+        <div class="cmd">
+          <code>pressure</code>
+          <span class="hint">压效果数据与诚实边界</span>
+        </div>
+        <div class="cmd">
+          <code>继续</code>
+          <span class="hint">按 session-state 下次启动句接着练</span>
+        </div>
+        <div class="cmd">
+          <code>菜单</code>
+          <span class="hint">在 Chat 里再看一遍启动面板</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="note">
+      <strong>它不会替你背答案。</strong>
+      你答不上来时，它会让你去代码里找证据，再自己讲一遍。这才是训练目标。
+    </div>
+
+    <p class="footer">
+      进度文件：<code>.interview-coach/session-state.md</code> ·
+      漏洞：<code>knowledge-gaps.md</code> ·
+      口述稿：<code>interview-answers.md</code>
+    </p>
+  </main>
+</body>
+</html>

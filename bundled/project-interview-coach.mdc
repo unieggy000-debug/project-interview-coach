@@ -1,0 +1,13 @@
+---
+description: 项目面试练习、模拟面试、deep-dive、口述测试、pressure 时启用 project-interview-coach 零配置流程
+alwaysApply: false
+---
+
+# 项目面试教练（本仓库）
+
+当用户要求项目面试、模拟面试、深挖项目理解、口述练习时：
+
+1. 遵循已安装的 `project-interview-coach` Skill（或本仓库 `.cursor/skills` 中的副本）。
+2. 源项目 = 本仓库根目录；练习区 = `.interview-coach/`（自动创建）。
+3. 不要要求用户另开文件夹或填写路径。
+4. 先读 `.interview-coach/session-state.md` 再开场；mock 时用面试官口吻，结束再复盘。

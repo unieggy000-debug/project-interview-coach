@@ -1,0 +1,5 @@
+# Ignore local practice notes if someone clones into an interview workspace
+.DS_Store
+Thumbs.db
+*.log
+.sessions-local/

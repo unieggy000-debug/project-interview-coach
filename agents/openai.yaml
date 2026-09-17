@@ -1,0 +1,8 @@
+interface:
+  display_name: "项目面试教练"
+  short_description: "打开正式项目即可模拟面试：自动建 .interview-coach/，证据追问，不替你讲课"
+  brand_color: "#1F4E79"
+  default_prompt: "开始本项目的面试练习：使用 project-interview-coach，零配置自动创建 .interview-coach/，按 session-state 续练或从 diagnose 开场。不要问我源路径和练习区路径。"
+
+policy:
+  allow_implicit_invocation: true
