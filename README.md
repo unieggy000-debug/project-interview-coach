@@ -7,7 +7,6 @@
 这是一个 **Cursor Skill**：在正式项目里做「反向拆解 + 证据验证 + 模拟面试」。  
 **零配置**：打开项目说话即可，练习笔记自动落在 `.interview-coach/`。
 
-**不做**独立网页 App。界面 = **Agent Chat 启动面板** + 可选 [`usage.html`](usage.html)。
 
 ---
 
@@ -105,7 +104,3 @@ project-interview-coach/
 细节见 `SKILL.md` 与 `references/`。
 
 ---
-
-## License
-
-MIT
