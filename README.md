@@ -53,12 +53,3 @@ https://github.com/unieggy000-debug/project-interview-coach
 | `继续` | 按上次进度接着练 |
 
 图文说明：[usage.html](usage.html)
-
----
-
-## 使用协议
-
-- **可以**：自己安装、用来练面试。  
-- **不可以**：改完再公开当成你的作品发布；也不能直接改本仓库（只有作者能改 GitHub 上的原仓库）。  
-
-完整条款见 [LICENSE](LICENSE)。
