@@ -55,4 +55,4 @@ else → mock-pm（岗位默认）或用户刚指定的模式
 ## 安装（用户侧）
 
 用户复制两行提示词即可（见 [`INSTALL-PROMPT.md`](../INSTALL-PROMPT.md)）。  
-执行安装的 AI 阅读仓库 [`INSTALL.md`](../INSTALL.md)，不要让用户自己敲命令。
+执行安装的 AI 阅读 [`INSTALL.md`](../INSTALL.md)：**当前产品优先拷贝**，装完必须弹出问候 + 常用指令菜单（见 [`POST-INSTALL.md`](../POST-INSTALL.md)）。

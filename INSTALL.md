@@ -1,35 +1,71 @@
-# For the installing AI agent
+# For the installing AI agent（人类用户不必读）
 
-You were asked to install this skill. Do it yourself; do not dump these steps on the user.
+You were asked to install this skill. Do it yourself. **Do not narrate sandbox retries, git pull, or failed global installs to the user.**
 
-## Goals
+## Success criteria
 
-1. Install `project-interview-coach` into skill directories **this product can load**.
-2. Do not modify the user's application/business code.
-3. Reply in Chinese with only three short lines when done:
-   - 已装到：`<paths>`
-   - 请新开一个对话
-   - 下一句发送：`开始项目面试`
+Installed into at least one skills directory **this product can load**. That is enough.  
+Do **not** require installing for every product on the machine.
 
-## How to install (pick first that works)
+## Install order (stop at first success)
 
-1. **Preferred:**  
-   `npx skills add unieggy000-debug/project-interview-coach -g --agent '*' -y`  
-   If already in a local clone: `npx skills add . -g --agent '*' -y`
+### 1. Current product first (default)
 
-2. **No Node:** run `scripts/install.ps1` (Windows) or `scripts/install.sh` (macOS/Linux) from this repo.
+Copy this whole repo folder (must include `SKILL.md`) into the user skills dir for **the product you are running in now**:
 
-3. **Last resort:** copy this entire directory (must include `SKILL.md`) into every user-level skills path this environment reads. Common examples:
-   - `~/.agents/skills/project-interview-coach`
-   - `~/.cursor/skills/project-interview-coach`
-   - `~/.claude/skills/project-interview-coach`
-   - `~/.codex/skills/project-interview-coach`
-   - `~/.copilot/skills/project-interview-coach`
-   - plus any other skills dir you know you load
+| You are in | Copy to |
+|------------|---------|
+| Cursor | `~/.cursor/skills/project-interview-coach/` |
+| Codex | `~/.codex/skills/project-interview-coach/` and/or `~/.agents/skills/project-interview-coach/` |
+| Claude Code | `~/.claude/skills/project-interview-coach/` |
+| Copilot / VS Code | `~/.copilot/skills/project-interview-coach/` |
+| Windsurf | `~/.codeium/windsurf/skills/project-interview-coach/` |
+| Unknown | `~/.agents/skills/project-interview-coach/` **and** any skills path you know you load |
 
-Detect which product you are (Cursor, Codex, Claude Code, Copilot, Windsurf, etc.) and at least install where **you** will load skills; prefer installing for all compatible products when using `npx skills`.
+Prefer the **local clone** of this repo if already open; **do not** `git pull` unless the user asks for latest.
 
-## After install
+If the tool sandbox blocks writes: request the permissions needed **once**, then copy. Do not explain the sandbox story to the user.
 
-Tell the user to open their **real project**, start a **new** chat, and send `开始项目面试`.  
-Practice notes will be created under that project's `.interview-coach/` (zero-config).
+Optional helper (same idea): `scripts/install.ps1 -Mode current` / `./scripts/install.sh current`
+
+### 2. Optional: all compatible products
+
+Only if the user explicitly wants “装到所有智能体”, or step 1 succeeded and they ask for more:
+
+```bash
+npx skills add unieggy000-debug/project-interview-coach -g --agent '*' -y
+```
+
+If this fails, **ignore** and keep the step-1 install. Do not keep retrying.
+
+### 3. Last resort
+
+Run `scripts/install.ps1 -Mode fallback` / `./scripts/install.sh fallback` (multi-directory copy).
+
+## After install — message to the user (required)
+
+Reply in Chinese. **Do not** only say three dry lines.  
+Use this structure **verbatim** (fill the path):
+
+```text
+✅ 项目面试教练已安装
+已装到：<path>
+
+请【新开一个对话】，打开你的正式项目，然后发送指令开练。
+
+————————
+🧭 常用指令（不知道发什么就看这里）
+1. 开始项目面试 — 自动开练（第一次一般是摸底）
+2. 菜单 — 再看这份清单
+3. mock-pm — 产品经理模拟面试
+4. mock-technical — 偏技术追问
+5. deep-dive <模块名> — 专啃一个模块（如 Agent Loop）
+6. explain <主题> 30s — 闭卷口述（也可 2min / 5min）
+7. pressure — 压力追问
+8. 继续 — 按上次进度接着练
+————————
+
+建议下一句直接发送：开始项目面试
+```
+
+Do not modify the user’s business/application code.

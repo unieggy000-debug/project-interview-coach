@@ -1,136 +1,129 @@
 #!/usr/bin/env bash
-# Install for ALL Agent Skills–compatible hosts.
-# Preferred: npx skills | Fallback: copy into common skill dirs
-#
-# Usage:
+# Default: current-product copy. Optional: npx | fallback
 #   ./scripts/install.sh
+#   ./scripts/install.sh current
 #   ./scripts/install.sh npx
 #   ./scripts/install.sh fallback
-#   AGENTS=cursor,claude-code,codex ./scripts/install.sh npx
+#   PRODUCT=cursor ./scripts/install.sh current
 
 set -euo pipefail
 
-MODE="${1:-auto}"   # auto | npx | fallback
+MODE="${1:-auto}"   # auto|current|npx|fallback
+PRODUCT="${PRODUCT:-auto}"
 AGENTS="${AGENTS:-*}"
 PROJECT_SCOPE="${PROJECT_SCOPE:-0}"
 SRC="$(cd "$(dirname "$0")/.." && pwd)"
 REPO_SLUG="unieggy000-debug/project-interview-coach"
+HOME_DIR="${HOME}"
+
+copy_skill_to() {
+  local dest_root="$1"
+  local dest="$dest_root/project-interview-coach"
+  mkdir -p "$dest_root"
+  rm -rf "$dest"
+  cp -R "$SRC" "$dest"
+  rm -rf "$dest/.git" 2>/dev/null || true
+  echo "$dest"
+}
+
+resolve_current_dest() {
+  case "$PRODUCT" in
+    cursor) echo "$HOME_DIR/.cursor/skills" ;;
+    codex) echo "$HOME_DIR/.codex/skills" ;;
+    claude) echo "$HOME_DIR/.claude/skills" ;;
+    copilot) echo "$HOME_DIR/.copilot/skills" ;;
+    windsurf) echo "$HOME_DIR/.codeium/windsurf/skills" ;;
+    agents) echo "$HOME_DIR/.agents/skills" ;;
+    *)
+      if [[ -d "$HOME_DIR/.cursor" ]]; then echo "$HOME_DIR/.cursor/skills"
+      else echo "$HOME_DIR/.agents/skills"
+      fi
+      ;;
+  esac
+}
 
 show_post_install() {
-  local detail="$1"
+  local path="$1"
   echo ""
-  echo "========================================"
-  echo "  project-interview-coach 已安装"
-  echo "========================================"
-  echo "$detail"
+  echo "✅ 项目面试教练已安装"
+  echo "已装到：$path"
   echo ""
-  echo "怎么用（任意已安装宿主）"
-  echo "  1. 打开正式项目"
-  echo "  2. 新开 Agent / Codex / Claude Code / Copilot 等对话"
-  echo "  3. 发送：开始项目面试"
-  echo "     或显式调用：\$project-interview-coach / @skill / /skills（视宿主而定）"
+  echo "请【新开一个对话】，打开你的正式项目，然后发送指令开练。"
   echo ""
-  echo "常用：菜单 | mock-pm | deep-dive Agent Loop | explain Agent Loop 30s | 继续"
+  echo "————————"
+  echo "🧭 常用指令（不知道发什么就看这里）"
+  echo "1. 开始项目面试 — 自动开练（第一次一般是摸底）"
+  echo "2. 菜单 — 再看这份清单"
+  echo "3. mock-pm — 产品经理模拟面试"
+  echo "4. mock-technical — 偏技术追问"
+  echo "5. deep-dive <模块名> — 专啃一个模块（如 Agent Loop）"
+  echo "6. explain <主题> 30s — 闭卷口述（也可 2min / 5min）"
+  echo "7. pressure — 压力追问"
+  echo "8. 继续 — 按上次进度接着练"
+  echo "————————"
   echo ""
-  echo "推荐通用安装："
-  echo "  npx skills add $REPO_SLUG -g --agent '*' -y"
-  echo "图文：$SRC/usage.html"
+  echo "建议下一句直接发送：开始项目面试"
   echo ""
-  if [[ -f "$SRC/usage.html" ]]; then
-    if command -v open >/dev/null 2>&1; then open "$SRC/usage.html" >/dev/null 2>&1 || true
-    elif command -v xdg-open >/dev/null 2>&1; then xdg-open "$SRC/usage.html" >/dev/null 2>&1 || true
-    fi
+}
+
+install_current() {
+  local root
+  root="$(resolve_current_dest)"
+  local dest
+  dest="$(copy_skill_to "$root")"
+  if [[ "$root" == *".cursor/skills" ]]; then
+    copy_skill_to "$HOME_DIR/.agents/skills" >/dev/null 2>&1 || true
   fi
+  echo "$dest"
 }
 
 install_via_npx() {
   local scope=(-g)
   [[ "$PROJECT_SCOPE" == "1" ]] && scope=()
-
-  local agent_args=()
-  if [[ "$AGENTS" == "*" ]]; then
-    agent_args=(--agent '*')
-  else
+  local agent_args=(--agent '*')
+  if [[ "$AGENTS" != "*" ]]; then
+    agent_args=()
     IFS=',' read -ra parts <<< "$AGENTS"
     for a in "${parts[@]}"; do
       a="$(echo "$a" | xargs)"
       [[ -n "$a" ]] && agent_args+=(--agent "$a")
     done
   fi
-
-  echo "使用 npx skills 安装到 Agent Skills 兼容宿主..."
-  if ! npx --yes skills add "$SRC" "${scope[@]}" "${agent_args[@]}" -y --copy; then
-    echo "本地路径失败，改用 GitHub：$REPO_SLUG"
+  npx --yes skills add "$SRC" "${scope[@]}" "${agent_args[@]}" -y --copy || \
     npx --yes skills add "$REPO_SLUG" "${scope[@]}" "${agent_args[@]}" -y --copy
-  fi
+  echo "npx skills (see CLI output)"
 }
 
 install_fallback() {
-  echo "离线兜底：复制到常见技能目录..."
-  local home="${HOME}"
   local dirs=(
-    ".agents/skills"
-    ".cursor/skills"
-    ".claude/skills"
-    ".codex/skills"
-    ".copilot/skills"
-    ".codeium/windsurf/skills"
-    ".gemini/skills"
-    ".config/opencode/skills"
-    ".continue/skills"
-    ".config/goose/skills"
-    ".kiro/skills"
-    ".roo/skills"
-    ".trae/skills"
-    ".augment/skills"
-    ".factory/skills"
-    ".kilo/skills"
-    ".aider-desk/skills"
-    ".config/agents/skills"
+    ".agents/skills" ".cursor/skills" ".claude/skills" ".codex/skills"
+    ".copilot/skills" ".codeium/windsurf/skills" ".gemini/skills"
+    ".config/opencode/skills" ".continue/skills" ".config/goose/skills"
+    ".kiro/skills" ".roo/skills" ".trae/skills" ".augment/skills"
+    ".factory/skills" ".kilo/skills" ".aider-desk/skills" ".config/agents/skills"
   )
-  local seen=""
+  local first="" seen=""
   for rel in "${dirs[@]}"; do
-    local dest_root="$home/$rel"
-    case " $seen " in
-      *" $dest_root "*) continue ;;
-    esac
+    local dest_root="$HOME_DIR/$rel"
+    case " $seen " in *" $dest_root "*) continue ;; esac
     seen="$seen $dest_root"
-    local dest="$dest_root/project-interview-coach"
-    mkdir -p "$dest_root"
-    rm -rf "$dest"
-    cp -R "$SRC" "$dest"
-    rm -rf "$dest/.git" 2>/dev/null || true
-    echo "  OK  $dest_root"
+    local d
+    d="$(copy_skill_to "$dest_root")"
+    [[ -z "$first" ]] && first="$d"
   done
-
-  if [[ "$PROJECT_SCOPE" == "1" ]]; then
-    local proj="$(pwd)/.agents/skills/project-interview-coach"
-    mkdir -p "$(dirname "$proj")"
-    rm -rf "$proj"
-    cp -R "$SRC" "$proj"
-    echo "  OK  project $proj"
-  fi
+  echo "$first"
 }
 
-has_npm=0
-command -v npm >/dev/null 2>&1 && has_npm=1
+[[ "$MODE" == "auto" ]] && MODE="current"
 
-use_npx=0
+path=""
 case "$MODE" in
-  npx) use_npx=1 ;;
-  fallback) use_npx=0 ;;
-  *) [[ "$has_npm" == "1" ]] && use_npx=1 || use_npx=0 ;;
+  current) path="$(install_current)" ;;
+  npx)
+    if path="$(install_via_npx)"; then :; else path="$(install_current)"; fi
+    ;;
+  fallback) path="$(install_fallback)" ;;
+  *) path="$(install_current)" ;;
 esac
 
-if [[ "$use_npx" == "1" ]]; then
-  if install_via_npx; then
-    show_post_install "方式: npx skills（推荐，适配官方列表中的全部宿主）"
-  else
-    echo "npx skills 失败，改用兜底复制"
-    install_fallback
-    show_post_install "方式: 多目录复制兜底。完整列表请运行: npx skills add $REPO_SLUG -g --agent '*' -y"
-  fi
-else
-  install_fallback
-  show_post_install "方式: 多目录复制兜底。建议: npx skills add $REPO_SLUG -g --agent '*' -y"
-fi
+show_post_install "$path"
