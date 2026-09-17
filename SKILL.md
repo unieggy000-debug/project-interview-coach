@@ -20,6 +20,15 @@ Agent Chat          = 唯一交互界面（启动面板 + 面试对话）
 
 ---
 
+## 若用户请你「安装本 Skill」
+
+先读仓库根目录 [INSTALL.md](INSTALL.md) 并执行，**不要**把安装步骤甩给用户。  
+用户侧提示词只有两行，见 [INSTALL-PROMPT.md](INSTALL-PROMPT.md)。
+
+装完只回复三句中文：已装到哪、请新开对话、下一句发 `开始项目面试`。
+
+---
+
 ## 启动面板（用户看得懂的「界面」）
 
 **不要做独立 Web App。** 交互界面 = Agent Chat 里的启动面板 + `.interview-coach/` 文件。

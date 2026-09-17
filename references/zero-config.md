@@ -54,9 +54,5 @@ else → mock-pm（岗位默认）或用户刚指定的模式
 
 ## 安装（用户侧）
 
-**普通用户：** 把仓库根目录 [`INSTALL-PROMPT.md`](../INSTALL-PROMPT.md) 复制发给当前智能体，让它安装。
-
-**会用终端：** `npx skills add unieggy000-debug/project-interview-coach -g --agent '*' -y`  
-或运行 `scripts/install.ps1` / `install.sh`。
-
-安装后新开对话即可。
+用户复制两行提示词即可（见 [`INSTALL-PROMPT.md`](../INSTALL-PROMPT.md)）。  
+执行安装的 AI 阅读仓库 [`INSTALL.md`](../INSTALL.md)，不要让用户自己敲命令。
