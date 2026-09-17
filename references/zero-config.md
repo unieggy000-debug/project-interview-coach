@@ -52,14 +52,11 @@ else → mock-pm（岗位默认）或用户刚指定的模式
 旧工作流（独立 interview 文件夹）仍兼容：若用户消息里显式给了练习区路径，或 state 里练习区不在当前仓库，则尊重用户配置。  
 **默认零配置优先。**
 
-## 安装（用户侧一次）
+## 安装（用户侧）
 
-推荐：
+**普通用户：** 把仓库根目录 [`INSTALL-PROMPT.md`](../INSTALL-PROMPT.md) 复制发给当前智能体，让它安装。
 
-```bash
-npx skills add unieggy000-debug/project-interview-coach -g --agent '*' -y
-```
+**会用终端：** `npx skills add unieggy000-debug/project-interview-coach -g --agent '*' -y`  
+或运行 `scripts/install.ps1` / `install.sh`。
 
-或运行仓库 `scripts/install.ps1` / `install.sh`（优先 npx skills，覆盖官方列表全部宿主；无 Node 时多目录兜底）。
-
-安装后新开对话即可；无需再配第二个项目窗口。
+安装后新开对话即可。

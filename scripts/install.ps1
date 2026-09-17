@@ -40,10 +40,9 @@ function Show-PostInstall {
   Write-Host ""
   Write-Host "常用：菜单 | mock-pm | deep-dive Agent Loop | explain Agent Loop 30s | 继续"
   Write-Host ""
-  Write-Host "推荐通用安装（覆盖官方支持的全部宿主）：" -ForegroundColor DarkGray
-  Write-Host "  npx skills add $RepoSlug -g --agent '*' -y"
-  Write-Host "图文：$(Join-Path $src 'usage.html')"
-  Write-Host ""
+  Write-Host "给朋友安装：让他们把 INSTALL-PROMPT.md 复制发给自己的 AI 即可。" -ForegroundColor DarkGray
+Write-Host "图文：$(Join-Path $src 'usage.html')"
+Write-Host ""
   $usage = Join-Path $src "usage.html"
   try { if (Test-Path $usage) { Start-Process $usage } } catch {}
 }

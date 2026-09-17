@@ -1,28 +1,11 @@
-# 安装完成后提示
+# 给智能体的安装提示（用户复制粘贴用）
 
-## 已安装 · 怎么用
+用户应把 [`INSTALL-PROMPT.md`](INSTALL-PROMPT.md) 全文发给当前 AI。
 
-1. 打开**正式项目**  
-2. **新开**对话（Cursor Agent / Codex / Claude Code / Copilot / Windsurf / …）  
-3. 发送：`开始项目面试`  
-   - 或显式：`$project-interview-coach` / `/skills` / `@` 选技能（视宿主）
+装完后你（智能体）必须用中文告诉用户：
 
-自动创建 `.interview-coach/`，对话里会出现启动面板。
+1. 已安装  
+2. 请**新开对话**  
+3. 打开正式项目后发送：`开始项目面试`
 
-| 再说一句 | 作用 |
-|----------|------|
-| `菜单` | 启动面板 |
-| `mock-pm` | 产品面 |
-| `deep-dive Agent Loop` | 深挖 |
-| `explain Agent Loop 30s` | 口述 |
-| `pressure` / `继续` | 压力 / 续练 |
-
-## 若还没装全
-
-推荐一次装到全部兼容宿主：
-
-```bash
-npx skills add unieggy000-debug/project-interview-coach -g --agent '*' -y
-```
-
-图文：`usage.html`。新对话后再用（部分宿主需重启）。
+常用后续指令：`菜单` | `mock-pm` | `deep-dive …` | `explain … 30s` | `pressure` | `继续`
