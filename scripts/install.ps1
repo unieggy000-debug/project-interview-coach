@@ -24,7 +24,7 @@ if (-not (Test-Path (Join-Path $src "SKILL.md"))) {
 }
 
 $RepoSlug = "unieggy000-debug/project-interview-coach"
-$home = $env:USERPROFILE
+$userProfile = $env:USERPROFILE
 $placeholder = [string]::Concat([char]60, "path", [char]62)  # <path> without parser issues
 
 function Copy-SkillTo([string]$destRoot) {
@@ -39,17 +39,17 @@ function Copy-SkillTo([string]$destRoot) {
 
 function Resolve-CurrentDest {
   switch ($Product) {
-    "cursor" { return (Join-Path $home ".cursor\skills") }
-    "codex" { return (Join-Path $home ".codex\skills") }
-    "claude" { return (Join-Path $home ".claude\skills") }
-    "copilot" { return (Join-Path $home ".copilot\skills") }
-    "windsurf" { return (Join-Path $home ".codeium\windsurf\skills") }
-    "agents" { return (Join-Path $home ".agents\skills") }
+    "cursor" { return (Join-Path $userProfile ".cursor\skills") }
+    "codex" { return (Join-Path $userProfile ".codex\skills") }
+    "claude" { return (Join-Path $userProfile ".claude\skills") }
+    "copilot" { return (Join-Path $userProfile ".copilot\skills") }
+    "windsurf" { return (Join-Path $userProfile ".codeium\windsurf\skills") }
+    "agents" { return (Join-Path $userProfile ".agents\skills") }
     default {
-      if (Test-Path (Join-Path $home ".cursor")) {
-        return (Join-Path $home ".cursor\skills")
+      if (Test-Path (Join-Path $userProfile ".cursor")) {
+        return (Join-Path $userProfile ".cursor\skills")
       }
-      return (Join-Path $home ".agents\skills")
+      return (Join-Path $userProfile ".agents\skills")
     }
   }
 }
@@ -79,7 +79,7 @@ function Install-Current {
   $root = Resolve-CurrentDest
   $dest = Copy-SkillTo $root
   if ($root -like "*\.cursor\skills") {
-    try { [void](Copy-SkillTo (Join-Path $home ".agents\skills")) } catch {}
+    try { [void](Copy-SkillTo (Join-Path $userProfile ".agents\skills")) } catch {}
   }
   return $dest
 }
@@ -116,7 +116,7 @@ function Install-Fallback {
   $seen = @{}
   $first = $null
   foreach ($rel in $rels) {
-    $destRoot = Join-Path $home $rel
+    $destRoot = Join-Path $userProfile $rel
     if ($seen.ContainsKey($destRoot)) { continue }
     $seen[$destRoot] = $true
     $d = Copy-SkillTo $destRoot

@@ -26,27 +26,7 @@ That is enough. Do not install for every product unless the user asks.
 
 Do not modify the user's application/business code.
 
-## Reply after success (required, Chinese)
+## Reply after success (required)
 
-Output exactly this template (replace `<path>` only). No preamble.
-
-```text
-✅ 项目面试教练已安装
-已装到：<path>
-
-请【新开一个对话】，打开你的正式项目，然后发送指令开练。
-
-————————
-🧭 常用指令（不知道发什么就看这里）
-1. 开始项目面试 — 自动开练（第一次一般是摸底）
-2. 菜单 — 再看这份清单
-3. mock-pm — 产品经理模拟面试
-4. mock-technical — 偏技术追问
-5. deep-dive <模块名> — 专啃一个模块（如 Agent Loop）
-6. explain <主题> 30s — 闭卷口述（也可 2min / 5min）
-7. pressure — 压力追问
-8. 继续 — 按上次进度接着练
-————————
-
-建议下一句直接发送：开始项目面试
-```
+Copy the Chinese template from `POST-INSTALL.md` (fill `<path>` only). No preamble.
+That template must explain: open project folder OR paste project path, plus provide resume, then send `开始项目面试`.

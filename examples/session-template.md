@@ -1,10 +1,12 @@
 # Session / Practice Workspace Templates
 
-零配置默认目录（在**正式项目根**下自动创建）：
+在**正式项目根**下自动创建（用户发了路径则写到该路径下）：
 
 ```text
 .interview-coach/
 ├── session-state.md
+├── resume.md
+├── resume-feedback.md
 ├── project-map.md
 ├── knowledge-gaps.md
 ├── architecture.md
@@ -25,8 +27,9 @@
 - 更新日期：
 - 当前模式：diagnose
 - 项目名：
-- 源项目路径：.（workspace root）
+- 源项目路径：（打开的文件夹 或 用户发的路径）
 - 练习区路径：.interview-coach
+- 简历来源：（文件名 / 粘贴）
 - 目标岗位：AI 产品经理
 - 面试官角色：PM
 
@@ -36,50 +39,33 @@
 ## 待解决 GAP
 -
 
+## 简历待改（摘要）
+-
+
 ## 最近薄弱点
 -
 
 ## 当前重点
 -
 
-## Interview Status 快照
--
-
 ## 下次启动句
-diagnose
+开始项目面试
+```
+
+---
+
+## resume-feedback.md
+
+```markdown
+# Resume Feedback
+
+| 简历原句 | 问题 | 建议改法 | 项目证据 |
+|----------|------|----------|----------|
+| | 夸大/含糊/无数据/角色不清 | | FACT / UNKNOWN |
 ```
 
 ---
 
 ## 其他文件
 
-首次 Bootstrap 可先写标题 + 一两行占位；内容在练习中由 Agent 更新。
-
-### knowledge-gaps.md
-
-```markdown
-# Knowledge Gaps
-
-## 层级星级
--
-
-## GAPs
--
-
-## 今天最值得 deep-dive 的 3 个
-1.
-2.
-3.
-```
-
-### project-map.md
-
-```markdown
-# Project Map
-
-（≤25 行最小事实；旁注 FACT / INFERENCE / UNKNOWN）
-```
-
-### interview-answers.md / evidence-map.md / architecture.md / data-flow.md / unknowns.md
-
-空文件或一级标题即可，随会话填充。
+`project-map` / `knowledge-gaps` / `evidence-map` 等同前；首次可空标题占位。

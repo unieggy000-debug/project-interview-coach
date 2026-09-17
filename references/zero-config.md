@@ -1,58 +1,27 @@
-# Zero-Config Bootstrap
+# Bootstrap / 项目与简历绑定
 
-## 目标
+## 用户怎么给项目（白话）
 
-用户只做两件事：
+1. Cursor「文件 → 打开文件夹」打开项目后再开练；或  
+2. 直接发本地路径；或  
+3. 发 Git 链接（有本地目录则用本地）
 
-1. 安装本 Skill 一次  
-2. 用 Cursor 打开正式项目，在 Agent Chat 说「开始项目面试」
+不要跟用户说 Workspace Root。当前窗口若是本 Skill 仓库或明显不是目标项目 → 追问路径。
 
-之后全部自动：练习区、状态、模式选择、开场。
+## 用户怎么给简历
 
-## 路径约定
+拖文件 / 发路径 / 粘贴 → 写入 `.interview-coach/resume.md`。
 
-```text
-<workspace>/                    ← 正式项目（只读查证）
-  .interview-coach/             ← 自动练习区
-    session-state.md
-    project-map.md
-    knowledge-gaps.md
-    ...
-  .gitignore                    ← 自动追加 .interview-coach/
-  .cursor/rules/                ← 可选写入轻量 rule
-```
+## 练习区
 
-不要再要求 `vision-agent-interview` 独立仓（用户仍可手动指定，但非默认）。
+`<源项目>/.interview-coach/`，含 `resume.md`、`resume-feedback.md`、`session-state.md` 等。  
+`.gitignore` 追加 `.interview-coach/`。
 
-## Bootstrap 检查清单
+## 开练前检查
 
-Agent 按序执行，缺啥补啥：
+- [ ] 源项目路径已知且可读  
+- [ ] 简历已收到  
+- [ ] 练习区骨架已建  
+- [ ] 再开问 / 展示面板  
 
-- [ ] `.interview-coach/` 存在  
-- [ ] `session-state.md` 存在且含源路径=workspace、练习区=`.interview-coach`  
-- [ ] 其余骨架 md 存在（可先空标题）  
-- [ ] 根 `.gitignore` 含 `.interview-coach/`  
-- [ ] （可选）`.cursor/rules/project-interview-coach.mdc` 存在  
-- [ ] `.interview-coach/怎么用.html` 存在（从技能包 `usage.html` 复制）  
-
-然后读 state → 展示启动面板（若需要）→ 开练。**禁止停下来问「练习区建在哪」。**  
-独立 GUI / 仪表盘：**不做**；Chat 启动面板即界面。
-
-## 模式自动选择
-
-```text
-if state.下次启动句 → 执行
-else if state.待解决 GAP 非空 → deep-dive 第一个
-else if project-map 几乎为空或从未 diagnose → diagnose
-else → mock-pm（岗位默认）或用户刚指定的模式
-```
-
-## 与「另开练习仓」的关系
-
-旧工作流（独立 interview 文件夹）仍兼容：若用户消息里显式给了练习区路径，或 state 里练习区不在当前仓库，则尊重用户配置。  
-**默认零配置优先。**
-
-## 安装（用户侧）
-
-用户复制两行提示词即可（见 [`INSTALL-PROMPT.md`](../INSTALL-PROMPT.md)）。  
-执行安装的 AI 阅读 [`INSTALL.md`](../INSTALL.md)：**当前产品优先拷贝**，装完必须弹出问候 + 常用指令菜单（见 [`POST-INSTALL.md`](../POST-INSTALL.md)）。
+安装后文案见 `POST-INSTALL.md`。简历追问见 `resume-interview.md`。

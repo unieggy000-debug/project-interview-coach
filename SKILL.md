@@ -1,207 +1,136 @@
 ---
 name: project-interview-coach
 description: >-
-  零配置项目面试教练：打开正式项目仓库即可练习，自动在 .interview-coach/ 创建练习区与 session-state，无需另建文件夹或手填路径。反向拆解 + 证据验证 + 模拟面试；模式 diagnose / deep-dive / mock-pm / mock-technical / pressure / explain。用户说「开始面试」「项目面试」「模拟面试」「面试练习」「deep-dive」「口述」「pressure」「我要练这个项目」或提到 project-interview-coach 时立即使用并自动开场，不要先问一堆配置问题。
+  项目+简历双料面试教练：对照简历表述与项目代码追问，标出简历可改点；支持打开项目文件夹或直接发项目路径。模式 diagnose / deep-dive / mock-pm / mock-technical / pressure / explain。用户说开始面试、项目面试、模拟面试、简历追问、deep-dive、口述、pressure、安装 project-interview-coach 时使用。装完须弹出问候与菜单；缺简历或项目时用白话收集，禁止过程播报。
 ---
 
 # Project Interview Coach
 
-**装上 Skill 后：打开正式项目 → Agent 说「开始项目面试」→ 同一 Chat 练。**  
-不必另开练习仓。可视化说明页：技能包内 [usage.html](usage.html)（Bootstrap 时复制为 `.interview-coach/怎么用.html`）。
+**项目代码事实 + 简历表述**一起练：追问项目细节，并指出简历哪里该改。
 
 ```text
-当前工作区 = 正式项目（只读查证）
-.interview-coach/   = 练习笔记
-Agent Chat          = 唯一交互界面（启动面板 + 面试对话）
+项目（文件夹或路径）+ 简历（文件/路径/粘贴）
+  → .interview-coach/ 笔记（含 resume-feedback）
+  → 面试追问 + 证据验证 + 简历反馈
 ```
 
-**代码事实 > 用户记忆 > AI 猜测。**  
-细节： [references/zero-config.md](references/zero-config.md) · [interview-method.md](references/interview-method.md) · [interview-interaction.md](references/interview-interaction.md) · [evidence-verification.md](references/evidence-verification.md) · [question-framework.md](references/question-framework.md) · [agent-projects.md](references/agent-projects.md) · [examples/session-template.md](examples/session-template.md)
+**代码事实 > 简历措辞 > 用户记忆 > AI 猜测。**  
+细节：[references/zero-config.md](references/zero-config.md) · [resume-interview.md](references/resume-interview.md) · [interview-method.md](references/interview-method.md) · [interview-interaction.md](references/interview-interaction.md) · [evidence-verification.md](references/evidence-verification.md) · [question-framework.md](references/question-framework.md) · [agent-projects.md](references/agent-projects.md) · [examples/session-template.md](examples/session-template.md)
 
 ---
 
 ## 若用户请你「安装本 Skill」
 
-1. 按 [INSTALL.md](INSTALL.md) 执行：**直接拷贝到当前产品技能目录**（脚本失败就立刻改用手拷，不要在对话里排错）。  
-2. **禁止**向用户播报：读文档、安装计划、沙箱、编码失败、git pull、降级过程。  
-3. 装完后**只**输出 [POST-INSTALL.md](POST-INSTALL.md) 中的问候 + 常用指令菜单。  
-4. 用户侧提示词见 [INSTALL-PROMPT.md](INSTALL-PROMPT.md)。
+1. 按 [INSTALL.md](INSTALL.md)：**直接拷贝**到当前产品技能目录（脚本失败就手拷，勿当面对话排错）。  
+2. **禁止**播报读文档/计划/沙箱/编码/git pull。  
+3. 装完**只**输出 [POST-INSTALL.md](POST-INSTALL.md)（含：如何打开项目 **或** 发路径、如何交简历、常用指令）。  
 
 ---
 
-## 启动面板（用户看得懂的「界面」）
+## 启动材料（缺一不可）
 
-**不要做独立 Web App。** 交互界面 = Agent Chat 里的启动面板 + `.interview-coach/` 文件。
+开始任何面试模式前，必须同时有：
 
-### 何时展示面板
+| 材料 | 用户可以怎么给（白话） |
+|------|------------------------|
+| **项目** | ① 已用 Cursor「打开文件夹」打开了项目；或 ② 直接发本地路径；或 ③ 发可克隆的 Git 链接（优先已有本地目录） |
+| **简历** | ① 拖文件进对话；或 ② 发简历路径；或 ③ 粘贴正文 |
+
+**不要**要求用户理解「工作区 / Workspace」。若当前窗口看起来不像目标项目（例如还在本 Skill 仓库里），用一句问清：
+
+> 请发你的项目文件夹路径，或用「文件 → 打开文件夹」打开项目后再说「开始项目面试」。  
+> 另外请把简历拖进来（或发路径/粘贴）。
+
+材料齐了再开问。练习区写在**项目目录**下的 `.interview-coach/`（若只有路径：对路径读写；不要写进无关仓库）。
+
+---
+
+## 启动面板
 
 | 情况 | 行为 |
 |------|------|
-| **刚完成安装**（本对话里装完） | 输出 POST-INSTALL 问候 + **完整常用指令菜单** |
-| 用户说「菜单 / 怎么用 / help / 使用说明 / 不知道干什么 / 我能发什么」 | **只展示面板**（常用指令清单），等用户选模式 |
-| 本仓库首次 Bootstrap，或用户只说「开始项目面试」且无明确子模式 | 先贴 **精简面板（≤12 行）**，同一条消息里按默认模式抛出 **第一个面试问题** |
-| 已在 mock/deep-dive 追问中 | **不重复贴面板**（除非用户要菜单） |
+| 刚安装完 | 只输出 POST-INSTALL |
+| 菜单 / 不知道干什么 | 常用指令清单 |
+| `开始项目面试` 且材料齐 | 精简面板 + 开问（可先对齐简历项目名） |
+| 缺材料 | 只补收材料，不假装已开练 |
 
-### 安装完成后的问候 + 菜单（与 POST-INSTALL.md 一致）
-
-```text
-✅ 项目面试教练已安装
-已装到：<path>
-
-请【新开一个对话】，打开你的正式项目，然后发送指令开练。
-
-————————
-🧭 常用指令（不知道发什么就看这里）
-1. 开始项目面试 — 自动开练（第一次一般是摸底）
-2. 菜单 — 再看这份清单
-3. mock-pm — 产品经理模拟面试
-4. mock-technical — 偏技术追问
-5. deep-dive <模块名> — 专啃一个模块（如 Agent Loop）
-6. explain <主题> 30s — 闭卷口述（也可 2min / 5min）
-7. pressure — 压力追问
-8. 继续 — 按上次进度接着练
-————————
-
-建议下一句直接发送：开始项目面试
-```
-
-### 面板固定模板（练习中途用，可按 state 填括号）
+### 常用指令（面板）
 
 ```text
-🧭 项目面试教练
-源项目：当前仓库 · 练习区：.interview-coach/
-进度：(首次 / 续练：当前重点…)
-建议下一步：(diagnose / deep-dive GAP-… / …)
-
-直接回复下面任一指令：
-1. diagnose — 摸底
-2. mock-pm — 产品面试
-3. mock-technical — 技术面试
-4. deep-dive <模块或 GAP-编号>
-5. explain <主题> 30s|2min|5min — 口述
-6. pressure — 压力追问
-7. 继续 — 按上次进度
-
-规则：我不会直接给你标准答案；卡住就去代码里找证据再讲。
+🧭 项目面试教练（项目 + 简历）
+1. 开始项目面试 — 开练（需项目 + 简历）
+2. 菜单 — 再看清单
+3. mock-pm / mock-technical
+4. deep-dive <模块或 GAP>
+5. explain <主题> 30s|2min|5min
+6. pressure
+7. 继续
+8. 简历反馈 — 汇总简历可改点（读/更新 resume-feedback.md）
 ```
 
 ---
 
-## 零配置启动（禁止先盘问路径）
+## 简历 × 项目追问
 
-触发语或点名本 Skill 时：
+详见 [references/resume-interview.md](references/resume-interview.md)。
 
-### 1. 自动绑定
+- 开场：保存 `resume.md`，最小扫描项目 → `project-map.md`  
+- 追问穿插简历原句；要证据；记录 `resume-feedback.md`  
+- 夸大/无数据/角色不清 → 标 FRAGILE 或 DO NOT CLAIM，并给改写方向  
+- 用户说「简历反馈」→ 输出可改清单，仍不擅自改用户原简历文件（除非明确要求代改）
 
-| 项 | 默认 |
+---
+
+## 零配置绑定
+
+| 项 | 规则 |
 |----|------|
-| 源项目 | **当前 Workspace Root** |
-| 练习区 | `<workspace>/.interview-coach/` |
-| 岗位 | state 或 `AI 产品经理` |
-| 模式 | 下次启动句 → 待解决 GAP → 用户指定 → 否则 `diagnose` |
-| 面试官 | 按模式默认 |
+| 源项目 | 用户指定路径 > 当前打开文件夹（若含代码/README）> 再追问 |
+| 练习区 | `<源项目>/.interview-coach/` |
+| 简历 | `.interview-coach/resume.md` |
+| 岗位 | state 或 AI 产品经理 |
+| 模式 | 下次启动句 → GAP → 用户指定 → diagnose |
 
-### 2. Bootstrap（若缺练习区）
+Bootstrap：创建练习区骨架 + `resume.md` / `resume-feedback.md` + 可选 rule/gitignore/`怎么用.html`。
 
-1. 创建 `.interview-coach/` + `sessions/`  
-2. 写入骨架 md（见 examples）  
-3. 复制技能包 `usage.html` → `.interview-coach/怎么用.html`（有则覆盖为新版说明亦可）  
-4. `.gitignore` 追加 `.interview-coach/`（若无）  
-5. 可选写入 `.cursor/rules/project-interview-coach.mdc`  
-
-对用户一句：「练习区在 `.interview-coach/`，说明页可打开 `怎么用.html`。」
-
-### 3. 面板 → 扫描 → 开场
-
-1. 读 `session-state.md`  
-2. 按上表展示启动面板（精简或完整）  
-3. `project-map` 空则最小扫描（不讲答案）  
-4. 若用户已要开始（非纯「菜单」）：同一轮抛出第一个问题  
-
-首次 diagnose 首问示例：
-
-> 今天做项目理解摸底。从它解决什么问题开始介绍。不确定就说不知道。
 ---
 
 ## Hard Rules
 
 ### DO NOT immediately provide the answer
 
-1. Narrower question → 2. User inspects code → 3. Point file only if needed → 4. User explains → 5. ≤3 short paras explain → 6. Re-test with new question.
+1. Narrower question → 2. User inspects code → 3. Point file if needed → 4. User explains → 5. Short explain → 6. Re-test.
 
 ### 其他
 
-1. 每次只追一个漏洞 / 一条效果打断链 / 一个口述缺失点。  
-2. 「应该」≠ 项目事实 → 查证。  
-3. **不改业务代码**；只写 `.interview-coach/`（及可选 rule / gitignore）。  
+1. 每次只追一个洞（或一条简历锚点）。  
+2. 「应该」≠ 事实 → 查证。  
+3. 不改业务代码；只写 `.interview-coach/`（及安装时的 skills 目录）。  
 4. 最小扫描；禁止全库精读后开考。  
-5. 0–5 必须带已证明/缺口/升级题 + Interview Status（**写入文件**；mock 对话里不刷标签）。  
+5. 0–5 须含已证明/缺口/升级题 + Interview Status（mock 中不刷标签）。  
 6. 无证据效果词立即打断。  
-7. 会话开始读、结束写 `session-state.md`。  
-8. **禁止**用「请先告诉我源项目路径和练习区」挡住开场。
+7. 读写 `session-state.md`。  
+8. **缺项目或简历时必须先收集**；收集时用白话，禁止堆术语。  
+9. 安装/运行过程禁止对用户播报排障过程。
 
 ---
 
-## 用户怎么说（同一 Chat 即可）
+## 用户指令
 
 | 用户说 | Agent 做 |
 |--------|----------|
-| 开始项目面试 / 开始面试练习 | Bootstrap + 精简面板 + 自动开场 |
-| 菜单 / 怎么用 / 不知道干什么 / 我能发什么 | 完整启动面板（常用指令），等选择 |
-| mock-pm / 模拟产品面试 | 进入 mock-pm |
-| deep-dive Agent Loop | 深挖该模块 |
-| deep-dive GAP-007 | 深挖该 GAP |
-| explain Agent Loop 30s | 口述测试 |
-| pressure | 压力模式 |
-| 继续 | 读 state 的下次启动句 / 当前重点 |
-| reset interview | 归档 state 到 sessions/ 后重建（需用户确认一句） |
+| 开始项目面试 | 检查项目+简历 → 开练 |
+| 菜单 / 不知道干什么 | 指令清单 |
+| mock-pm / mock-technical / pressure | 对应模式（材料不足先补） |
+| deep-dive … / explain … | 深挖 / 口述 |
+| 简历反馈 | 汇总 resume-feedback |
+| 继续 | 按 state 续练 |
+| reset interview | 确认后归档重建 |
 
 ---
 
-## Session State
+## 练习区文件
 
-路径固定：`.interview-coach/session-state.md`。字段见 examples。跨日续练靠它。
+`session-state.md` · `project-map.md` · `knowledge-gaps.md` · `resume.md` · `resume-feedback.md` · `architecture.md` · `data-flow.md` · `evidence-map.md` · `interview-answers.md` · `unknowns.md` · `sessions/`
 
----
-
-## 模式 · 角色 · 打断 · 口述 · 显隐
-
-与前版相同，细节在 references：
-
-- 模式：diagnose / deep-dive / mock-pm / mock-technical / pressure / explain  
-- mock-pm 舞台：介绍→背景→职责→方案→为什么→数据→困难→结果→技术→反事实→压力  
-- 角色：PM / 技术 / 业务 / 项目负责人 / 质疑型  
-- 效果词打断：提高/优化/更快… → 指标→基线→数据→测法  
-- mock 时隐藏标签；结束统一复盘 + Top 3 GAP  
-- A/B/C；0–5；SAFE/QUALIFIED/FRAGILE/DO NOT CLAIM；FACT/CLAIM/INFERENCE/UNKNOWN  
-- 核心目标常 4，外围 2–3  
-
----
-
-## 工作流（自动版）
-
-```text
-触发
- → Bootstrap .interview-coach/（如需）
- → 读 session-state
- → 选模式（默认/续练）
- → 最小 map（如需）
- → 面试官开场（同一 Chat）
- → 证据环 / 打断 / 口述
- → 结束写回 state + gaps + Top3
-```
-
----
-
-## 练习区文件（均在 `.interview-coach/`）
-
-`session-state.md` · `project-map.md` · `knowledge-gaps.md` · `architecture.md` · `data-flow.md` · `evidence-map.md` · `interview-answers.md` · `unknowns.md` · `sessions/`
-
----
-
-## 禁止
-
-- 要求用户先建第二个文件夹才能开始  
-- 模拟中刷评分标签 / 先讲标准答案  
-- 接受无证据「提高效率」  
-- 改正式业务代码「方便讲解」  
+A/B/C、0–5、Interview Status、证据等级语义同 references。
