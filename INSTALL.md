@@ -1,4 +1,4 @@
-# For the installing AI agent（人类用户不必读）
+# For the installing AI agent
 
 You were asked to install this skill. Do it yourself; do not dump these steps on the user.
 
