@@ -52,4 +52,3 @@ https://github.com/unieggy000-debug/project-interview-coach
 | `pressure` | 压力模式，专打效果和数据 |
 | `继续` | 按上次进度接着练 |
 
-图文说明：[usage.html](usage.html)
