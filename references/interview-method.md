@@ -17,10 +17,11 @@
 读 session-state → 最小事实地图 → 用户自述 → 追问/打断
   → 用户定位证据 → 短解释 → 重测
   → 更新分数三元组 + Interview Status + session-state
-  → mock 结束 → Top 3 deep-dive GAP
+  → 场次结束 → 成绩单 + 错题本 + Top 3 deep-dive
 ```
 
-交互细节（续练、角色、效果词打断、口述、标签显隐）见 [interview-interaction.md](interview-interaction.md)。
+出题忌浅问、忌单面，见 [question-framework.md](question-framework.md)「深度追问协议」。  
+收尾格式见 [session-debrief.md](session-debrief.md)。
 ## 优先级
 
 **代码事实 > 用户记忆 > AI 猜测**

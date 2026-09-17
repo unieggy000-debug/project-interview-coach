@@ -15,7 +15,7 @@ description: >-
 ```
 
 **代码事实 > 简历措辞 > 用户记忆 > AI 猜测。**  
-细节：[references/zero-config.md](references/zero-config.md) · [resume-interview.md](references/resume-interview.md) · [interview-method.md](references/interview-method.md) · [interview-interaction.md](references/interview-interaction.md) · [evidence-verification.md](references/evidence-verification.md) · [question-framework.md](references/question-framework.md) · [agent-projects.md](references/agent-projects.md) · [examples/session-template.md](examples/session-template.md)
+细节：[references/zero-config.md](references/zero-config.md) · [resume-interview.md](references/resume-interview.md) · [session-debrief.md](references/session-debrief.md) · [interview-method.md](references/interview-method.md) · [interview-interaction.md](references/interview-interaction.md) · [evidence-verification.md](references/evidence-verification.md) · [question-framework.md](references/question-framework.md) · [agent-projects.md](references/agent-projects.md) · [examples/session-template.md](examples/session-template.md)
 
 ---
 
@@ -115,7 +115,24 @@ Bootstrap：创建练习区骨架 + `resume.md` / `resume-feedback.md` + 可选 
 6. 无证据效果词立即打断。  
 7. 读写 `session-state.md`。  
 8. **缺项目或简历时必须先收集**；收集时用白话，禁止堆术语。  
-9. 安装/运行过程禁止对用户播报排障过程。
+9. 安装/运行过程禁止对用户播报排障过程。  
+10. **每场结束必须出具成绩单 + 错题本**（见 session-debrief.md），并写入练习区。  
+11. 出题遵守「深度追问协议」：禁止只问定义/技术名词清单；每场至少覆盖简历锚点、失败边界、反事实/取舍、代码证据各一次。
+
+---
+
+## 场次结束（成绩单 + 错题本）
+
+触发：用户说「结束 / 先到这 / 总结 / 出成绩」，或 mock/diagnose/pressure 自然收尾。
+
+1. 按 [references/session-debrief.md](references/session-debrief.md) 输出成绩单模板。  
+2. 追加写入：
+   - `.interview-coach/scorecard.md`
+   - `.interview-coach/错题本.md`
+   - 更新 `resume-feedback.md` / `knowledge-gaps.md` / `session-state.md`  
+3. 给出下次三条行动（deep-dive / explain / 简历改法）。
+
+进行中不要刷分；收尾再亮。
 
 ---
 
@@ -128,13 +145,14 @@ Bootstrap：创建练习区骨架 + `resume.md` / `resume-feedback.md` + 可选 
 | mock-pm / mock-technical / pressure | 对应模式（材料不足先补） |
 | deep-dive … / explain … | 深挖 / 口述 |
 | 简历反馈 | 汇总 resume-feedback |
-| 继续 | 按 state 续练 |
+| 结束 / 总结 / 出成绩 | **成绩单 + 错题本** |
+| 继续 | 按 state 续练；可从错题本 open 项接着打 |
 | reset interview | 确认后归档重建 |
 
 ---
 
 ## 练习区文件
 
-`session-state.md` · `project-map.md` · `knowledge-gaps.md` · `resume.md` · `resume-feedback.md` · `architecture.md` · `data-flow.md` · `evidence-map.md` · `interview-answers.md` · `unknowns.md` · `sessions/`
+`session-state.md` · `project-map.md` · `knowledge-gaps.md` · `resume.md` · `resume-feedback.md` · `scorecard.md` · `错题本.md` · `architecture.md` · `data-flow.md` · `evidence-map.md` · `interview-answers.md` · `unknowns.md` · `sessions/`
 
 A/B/C、0–5、Interview Status、证据等级语义同 references。

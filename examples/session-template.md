@@ -7,6 +7,8 @@
 ├── session-state.md
 ├── resume.md
 ├── resume-feedback.md
+├── scorecard.md
+├── 错题本.md
 ├── project-map.md
 ├── knowledge-gaps.md
 ├── architecture.md

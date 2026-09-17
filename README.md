@@ -37,6 +37,7 @@ https://github.com/unieggy000-debug/project-interview-coach
 | 能力 | 说明 |
 |------|------|
 | **项目摸底 / 深挖** | 产品、流程、Agent、数据、工程一路追问 |
+| **成绩单 + 错题本** | 每场结束打分，错题可下次接着练 |
 | **对照简历提问** | 简历怎么写的，就按那句往下扎，看能不能被代码证明 |
 | **简历可改点** | 输出哪里夸大、含糊、缺数据，给改写方向 |
 | **证据验证** | 不让你背空话，卡住就去项目里找 |
@@ -56,6 +57,7 @@ https://github.com/unieggy000-debug/project-interview-coach
 | `deep-dive Agent Loop` | 深挖模块 |
 | `explain Agent Loop 30s` | 口述 |
 | `pressure` | 压力追问 |
+| `结束` / `出成绩` | 本场成绩单 + 错题本 |
 | `简历反馈` | 看简历可改清单 |
 | `继续` | 续练 |
 
