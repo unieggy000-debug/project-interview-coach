@@ -56,7 +56,21 @@ description: >-
 
 ### 常用指令（面板）
 
-与 [POST-INSTALL.md](POST-INSTALL.md) 中「常用指令」一节保持一致。
+与 [POST-INSTALL.md](POST-INSTALL.md) 保持一致。**必须保留空行**，用 Markdown 列表输出；禁止把全文挤成一段。
+
+用户说「菜单」时只输出这一块（同样保留空行）：
+
+```markdown
+**🧭 常用指令**
+
+1. 开始项目面试 — 开练
+2. 菜单 — 查看常用指令
+3. mock-pm / mock-technical — 产品面 / 技术面
+4. deep-dive \<模块名\> — 专啃模块
+5. explain \<主题\> 30s — 口述
+6. pressure — 压力追问
+7. 继续 — 按进度续练
+```
 
 ---
 

@@ -46,7 +46,7 @@ show_post_install() {
   local template="$SRC/POST-INSTALL.md"
   if [[ -f "$template" ]]; then
     # Print fenced ```text block body
-    awk 'BEGIN{p=0} /^```text/{p=1; next} /^```/{if(p){exit}} p{print}' "$template"
+    awk 'BEGIN{p=0} /^```(text|markdown)[[:space:]]*$/{p=1; next} /^```/{if(p){exit}} p{print}' "$template"
     echo ""
     return
   fi

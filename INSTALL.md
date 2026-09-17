@@ -28,5 +28,5 @@ Do not modify the user's application/business code.
 
 ## Reply after success (required)
 
-Copy the Chinese template from `POST-INSTALL.md` exactly (strip the markdown code fence if needed). No preamble. Do not add extra lines about install path unless the user asks.
+Copy the Chinese template from `POST-INSTALL.md` exactly (strip only the outer fence). Keep every blank line so Chat markdown does not collapse into one paragraph. No preamble. Do not add extra lines about install path unless the user asks.
 

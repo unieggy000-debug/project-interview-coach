@@ -60,6 +60,10 @@ function Show-PostInstall([string]$installedPath) {
     $raw = [System.IO.File]::ReadAllText($templatePath, [System.Text.UTF8Encoding]::new($false))
     $marker = '```text'
     $start = $raw.IndexOf($marker)
+    if ($start -lt 0) {
+      $marker = '```markdown'
+      $start = $raw.IndexOf($marker)
+    }
     if ($start -ge 0) {
       $start = $raw.IndexOf([char]10, $start) + 1
       $end = $raw.IndexOf('```', $start)
