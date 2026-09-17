@@ -1,4 +1,4 @@
-# For the installing AI agent（人类用户不必读）
+# For the installing AI agent
 
 You were asked to install this skill. Do it yourself. **Do not narrate sandbox retries, git pull, or failed global installs to the user.**
 
