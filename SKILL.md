@@ -56,17 +56,7 @@ description: >-
 
 ### 常用指令（面板）
 
-```text
-🧭 项目面试教练（项目 + 简历）
-1. 开始项目面试 — 开练（需项目 + 简历）
-2. 菜单 — 再看清单
-3. mock-pm / mock-technical
-4. deep-dive <模块或 GAP>
-5. explain <主题> 30s|2min|5min
-6. pressure
-7. 继续
-8. 简历反馈 — 汇总简历可改点（读/更新 resume-feedback.md）
-```
+与 [POST-INSTALL.md](POST-INSTALL.md) 中「常用指令」一节保持一致。
 
 ---
 

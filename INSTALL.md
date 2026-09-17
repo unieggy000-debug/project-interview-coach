@@ -28,5 +28,5 @@ Do not modify the user's application/business code.
 
 ## Reply after success (required)
 
-Copy the Chinese template from `POST-INSTALL.md` (fill `<path>` only). No preamble.
-That template must explain: open project folder OR paste project path, plus provide resume, then send `开始项目面试`.
+Copy the Chinese template from `POST-INSTALL.md` exactly (strip the markdown code fence if needed). No preamble. Do not add extra lines about install path unless the user asks.
+

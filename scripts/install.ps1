@@ -65,7 +65,9 @@ function Show-PostInstall([string]$installedPath) {
       $end = $raw.IndexOf('```', $start)
       if ($end -gt $start) {
         $body = $raw.Substring($start, $end - $start).Trim()
-        $body = $body.Replace($placeholder, $installedPath)
+        if ($body.Contains($placeholder) -and $installedPath) {
+          $body = $body.Replace($placeholder, $installedPath)
+        }
         Write-Output $body
         return
       }

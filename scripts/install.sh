@@ -43,27 +43,14 @@ resolve_current_dest() {
 }
 
 show_post_install() {
-  local path="$1"
-  echo ""
-  echo "✅ 项目面试教练已安装"
-  echo "已装到：$path"
-  echo ""
-  echo "请【新开一个对话】，打开你的正式项目，然后发送指令开练。"
-  echo ""
-  echo "————————"
-  echo "🧭 常用指令（不知道发什么就看这里）"
-  echo "1. 开始项目面试 — 自动开练（第一次一般是摸底）"
-  echo "2. 菜单 — 再看这份清单"
-  echo "3. mock-pm — 产品经理模拟面试"
-  echo "4. mock-technical — 偏技术追问"
-  echo "5. deep-dive <模块名> — 专啃一个模块（如 Agent Loop）"
-  echo "6. explain <主题> 30s — 闭卷口述（也可 2min / 5min）"
-  echo "7. pressure — 压力追问"
-  echo "8. 继续 — 按上次进度接着练"
-  echo "————————"
-  echo ""
-  echo "建议下一句直接发送：开始项目面试"
-  echo ""
+  local template="$SRC/POST-INSTALL.md"
+  if [[ -f "$template" ]]; then
+    # Print fenced ```text block body
+    awk 'BEGIN{p=0} /^```text/{p=1; next} /^```/{if(p){exit}} p{print}' "$template"
+    echo ""
+    return
+  fi
+  echo "Installed. Send: 开始项目面试"
 }
 
 install_current() {
