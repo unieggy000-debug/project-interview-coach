@@ -54,7 +54,12 @@ else → mock-pm（岗位默认）或用户刚指定的模式
 
 ## 安装（用户侧一次）
 
-见仓库根目录 `scripts/install.ps1` / `install.sh`：复制到 `~/.cursor/skills/project-interview-coach/`。  
-或把本目录直接放进个人 skills。
+推荐：
 
-安装后新开 Agent 对话即可；无需再配第二个项目窗口。
+```bash
+npx skills add unieggy000-debug/project-interview-coach -g --agent '*' -y
+```
+
+或运行仓库 `scripts/install.ps1` / `install.sh`（优先 npx skills，覆盖官方列表全部宿主；无 Node 时多目录兜底）。
+
+安装后新开对话即可；无需再配第二个项目窗口。

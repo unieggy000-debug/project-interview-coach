@@ -1,12 +1,13 @@
-# 安装完成后请把这段提示发给用户（或由 install 脚本打印）
+# 安装完成后提示
 
 ## 已安装 · 怎么用
 
-1. 用 Cursor **打开正式项目**
-2. **新开** Agent Chat
-3. 发送：`开始项目面试`
+1. 打开**正式项目**  
+2. **新开**对话（Cursor Agent / Codex / Claude Code / Copilot / Windsurf / …）  
+3. 发送：`开始项目面试`  
+   - 或显式：`$project-interview-coach` / `/skills` / `@` 选技能（视宿主）
 
-自动创建 `.interview-coach/`，Chat 里会出现启动面板。
+自动创建 `.interview-coach/`，对话里会出现启动面板。
 
 | 再说一句 | 作用 |
 |----------|------|
@@ -16,6 +17,12 @@
 | `explain Agent Loop 30s` | 口述 |
 | `pressure` / `继续` | 压力 / 续练 |
 
-图文说明：技能目录里的 `usage.html`（双击用浏览器打开）。
+## 若还没装全
 
-安装后请用**新对话**，旧 Chat 可能尚未加载 Skill。
+推荐一次装到全部兼容宿主：
+
+```bash
+npx skills add unieggy000-debug/project-interview-coach -g --agent '*' -y
+```
+
+图文：`usage.html`。新对话后再用（部分宿主需重启）。

@@ -167,22 +167,24 @@
       <div class="step">
         <div class="num">1</div>
         <div>
-          <h2>安装 Skill（只需一次）</h2>
-          <p>把本仓库装进 Cursor 个人 skills，或运行 <code>scripts/install.ps1</code>。</p>
+          <h2>安装 Skill（一次，全宿主）</h2>
+          <p>推荐用开放安装器装到当前环境支持的全部 Agent（Cursor / Codex / Claude Code / Copilot / Windsurf …）：</p>
+          <span class="say">npx skills add unieggy000-debug/project-interview-coach -g --agent '*' -y</span>
+          <p style="margin-top:8px">或克隆后运行 <code>scripts/install.ps1</code> / <code>scripts/install.sh</code>（优先 npx，否则多目录兜底）。</p>
         </div>
       </div>
       <div class="step">
         <div class="num">2</div>
         <div>
           <h2>打开正式项目</h2>
-          <p>用 Cursor 打开你要讲的那个仓库（例如 vision-agent）。</p>
+          <p>用任意已安装该 Skill 的智能体打开你要讲的仓库。</p>
         </div>
       </div>
       <div class="step">
         <div class="num">3</div>
         <div>
-          <h2>新开 Agent Chat，说一句</h2>
-          <p>Agent 会自动建练习区并开场，不要先问你路径。</p>
+          <h2>新开对话，说一句</h2>
+          <p>会出启动面板并开场。也可 <code>$project-interview-coach</code> / <code>/skills</code>（视宿主）。</p>
           <span class="say">开始项目面试</span>
         </div>
       </div>
